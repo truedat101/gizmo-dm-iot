@@ -1,7 +1,7 @@
 <template>
   <div class="app-navbar-actions">
     <GithubButton v-if="!isMobile" class="app-navbar-actions__item" />
-    <VaButton
+    <!-- <VaButton
       v-if="!isMobile"
       preset="secondary"
       href="https://admin.vuestic.dev/"
@@ -10,7 +10,7 @@
       class="app-navbar-actions__item flex-shrink-0 mx-0"
     >
       {{ t('aboutVuesticAdmin') }}
-    </VaButton>
+    </VaButton> -->
     <VaButton
       v-if="!isMobile"
       preset="secondary"

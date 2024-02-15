@@ -1,6 +1,6 @@
 // @ts-expect-error TS(2307): Cannot find module '@/stores' or its corresponding... Remove this comment to see the full error message
-import { useAuthStore } from '@/stores';
-
+// import { useAuthStore } from '@/stores';
+import useAuthStore from '../stores';
 export const fetchWrapper = {
     get: request('GET'),
     post: request('POST'),

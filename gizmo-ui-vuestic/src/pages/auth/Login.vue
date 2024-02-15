@@ -49,9 +49,10 @@ import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useForm, useToast } from 'vuestic-ui'
 import { validators } from '../../services/utils'
+import { useAuthStore } from '../../stores/auth.store';
 
 const { validate } = useForm('form')
-const { push } = useRouter()
+// const { push } = useRouter()
 const { init } = useToast()
 
 const formData = reactive({
@@ -62,8 +63,19 @@ const formData = reactive({
 
 const submit = () => {
   if (validate()) {
-    init({ message: "You've successfully logged in", color: 'success' })
-    push({ name: 'dashboard' })
+    // init({ message: "You've successfully logged in", color: 'success' })
+    // push({ name: 'dashboard' })
+
+    const authStore = useAuthStore();
+    const { email, password } = formData;
+
+    /*
+    
+    return authStore.login(username, password)
+        .catch(error => setErrors({ apiError: error }));
+    */
+    authStore.login(email, password)
+        .catch(error => init({ message: "Unknown Username or Password", color: 'error' }));
   }
 }
 </script>

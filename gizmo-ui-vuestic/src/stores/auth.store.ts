@@ -1,17 +1,16 @@
 import { defineStore } from 'pinia';
 
-// @ts-expect-error TS(2307): Cannot find module '@/helpers' or its correspondin... Remove this comment to see the full error message
-import { fetchWrapper, router } from '@/helpers';
-
-// @ts-expect-error TS(1343): The 'import.meta' meta-property is only allowed wh... Remove this comment to see the full error message
+import { fetchWrapper} from '../helpers/fetch-wrapper';
+// import { oldrouter} from '../helpers/router';
+import router from '../router'
 const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 
 export const useAuthStore = defineStore({
     id: 'auth',
     state: () => ({
+
         // initialize state from local storage to enable user to stay logged in
-        // @ts-expect-error TS(2345): Argument of type 'string | null' is not assignable... Remove this comment to see the full error message
-        user: JSON.parse(localStorage.getItem('user')),
+        user: JSON.parse((<any>global).localStorage.getItem('user')),
         returnUrl: null
     }),
     actions: {
@@ -25,7 +24,7 @@ export const useAuthStore = defineStore({
             localStorage.setItem('user', JSON.stringify(user));
 
             // redirect to previous url or default to home page
-            router.push(this.returnUrl || '/');
+            router.push(this.returnUrl || 'dashboard');
         },
         logout() {
             this.user = null;
