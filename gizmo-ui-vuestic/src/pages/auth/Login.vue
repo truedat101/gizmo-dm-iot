@@ -51,6 +51,9 @@ import { useForm, useToast } from 'vuestic-ui'
 import { validators } from '../../services/utils'
 import { useAuthStore } from '../../stores/auth.store';
 
+window.process = window.process || {};
+window.global = window;
+
 const { validate } = useForm('form')
 // const { push } = useRouter()
 const { init } = useToast()

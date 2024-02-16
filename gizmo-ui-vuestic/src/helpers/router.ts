@@ -6,7 +6,6 @@ import { useAuthStore } from '@/stores';
 import { HomeView, LoginView } from '@/views';
 
 export const router = createRouter({
-    // @ts-expect-error TS(1343): The 'import.meta' meta-property is only allowed wh... Remove this comment to see the full error message
     history: createWebHistory(import.meta.env.BASE_URL),
     linkActiveClass: 'active',
     routes: [

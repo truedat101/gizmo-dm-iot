@@ -5,14 +5,16 @@ import { fetchWrapper} from '../helpers/fetch-wrapper';
 import router from '../router'
 const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 
-export const useAuthStore = defineStore({
-    id: 'auth',
-    state: () => ({
-
-        // initialize state from local storage to enable user to stay logged in
-        user: JSON.parse((<any>global).localStorage.getItem('user')),
-        returnUrl: null
-    }),
+  
+export const useAuthStore = defineStore('auth', {
+    // id: 'auth',
+    state: () => {
+        return {
+            // initialize state from local storage to enable user to stay logged in
+            user: JSON.parse((<any>global).localStorage.getItem('user')),
+            returnUrl: null
+        }
+    },
     actions: {
         async login(username: any, password: any) {
             const user = await fetchWrapper.post(`${baseUrl}/authenticate`, { username, password });

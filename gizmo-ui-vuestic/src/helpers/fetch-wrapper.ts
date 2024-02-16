@@ -1,6 +1,7 @@
-// @ts-expect-error TS(2307): Cannot find module '@/stores' or its corresponding... Remove this comment to see the full error message
 // import { useAuthStore } from '@/stores';
-import useAuthStore from '../stores';
+import { useAuthStore } from '../stores/auth.store';
+// @ts-expect-error TS(2307): Cannot find module '@/stores' or its corresponding... Remove this comment to see the full error message
+// import { useAuthStore } from '@../stores';
 export const fetchWrapper = {
     get: request('GET'),
     post: request('POST'),
@@ -31,7 +32,6 @@ function authHeader(url: any) {
     // return auth header with jwt if user is logged in and request is to the api url
     const { user } = useAuthStore();
     const isLoggedIn = !!user?.token;
-    // @ts-expect-error TS(1343): The 'import.meta' meta-property is only allowed wh... Remove this comment to see the full error message
     const isApiUrl = url.startsWith(import.meta.env.VITE_API_URL);
     if (isLoggedIn && isApiUrl) {
         return { Authorization: `Bearer ${user.token}` };
