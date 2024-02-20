@@ -12,11 +12,19 @@
         "start:dev": "nodemon ./server.js"
     },
     "dependencies": {
+        "@mikro-orm/better-sqlite": "^6.1.4",
+        "@mikro-orm/core": "^6.1.4",
+        "@mikro-orm/sql-highlighter": "^1.0.1",
+        "@mikro-orm/sqlite": "^6.1.4",
         "cors": "^2.8.5",
         "express": "^4.18.2",
         "express-jwt": "^8.4.1",
         "jsonwebtoken": "^9.0.0",
-        "rootpath": "^0.1.2"
+        "node-jwt-authentication-api": "link:",
+        "rootpath": "^0.1.2",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui": "^5.11.7",
+        "swagger-ui-express": "^5.0.0"
     },
     "devDependencies": {
         "nodemon": "^3.0.3"

@@ -9,6 +9,18 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
+  server: {
+    proxy: {
+      // string shorthand
+      // '/foo': 'http://localhost:4567',
+      // with options
+      '/api': {
+        target: 'localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
+    },
+  },
   plugins: [
     vue(),
     VueI18nPlugin({

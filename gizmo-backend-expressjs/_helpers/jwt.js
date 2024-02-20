@@ -1,9 +1,10 @@
+// "use strict";
 const { expressjwt } = require('express-jwt');
-const config = require('config.json');
+const config = require('../config.json');
 
-module.exports = jwt;
+// module.exports = jwt;
 
-function jwt() {
+const jwt = () => {
     const { secret } = config;
     return expressjwt({ secret, algorithms: ['HS256'] }).unless({
         path: [
@@ -12,3 +13,8 @@ function jwt() {
         ]
     });
 }
+
+
+module.exports = {
+    jwt
+};

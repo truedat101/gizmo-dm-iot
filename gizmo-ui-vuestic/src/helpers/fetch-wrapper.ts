@@ -1,6 +1,5 @@
 // import { useAuthStore } from '@/stores';
 import { useAuthStore } from '../stores/auth.store';
-// @ts-expect-error TS(2307): Cannot find module '@/stores' or its corresponding... Remove this comment to see the full error message
 // import { useAuthStore } from '@../stores';
 export const fetchWrapper = {
     get: request('GET'),
@@ -11,17 +10,16 @@ export const fetchWrapper = {
 
 function request(method: any) {
     return (url: any, body: any) => {
-        const requestOptions = {
+        const requestOptions:any = {
             method,
             headers: authHeader(url)
         };
         if (body) {
-            // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+            
             requestOptions.headers['Content-Type'] = 'application/json';
-            // @ts-expect-error TS(2339): Property 'body' does not exist on type '{ method: ... Remove this comment to see the full error message
             requestOptions.body = JSON.stringify(body);
+            console.log(">>>> BODY IS: ", requestOptions.body);
         }
-        // @ts-expect-error TS(2345): Argument of type '{ method: any; headers: { Author... Remove this comment to see the full error message
         return fetch(url, requestOptions).then(handleResponse);
     };
 }
@@ -34,8 +32,10 @@ function authHeader(url: any) {
     const isLoggedIn = !!user?.token;
     const isApiUrl = url.startsWith(import.meta.env.VITE_API_URL);
     if (isLoggedIn && isApiUrl) {
+        console.log("isLogged in");
         return { Authorization: `Bearer ${user.token}` };
     } else {
+        console.log("isLogged == false");
         return {};
     }
 }
