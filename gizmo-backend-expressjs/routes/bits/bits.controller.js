@@ -34,7 +34,7 @@ const bitsService = require('./bits.service');
  */
 router.get('/checkforupdatesbyserialno/:serialno/:version', checkforupdatesbyserialno);
 
-// routes
+
 /**
  * @swagger
  *  /bits/downloadbitsdescriptor/{bitid}:
@@ -53,6 +53,18 @@ router.get('/checkforupdatesbyserialno/:serialno/:version', checkforupdatesbyser
  */
 router.get('/downloadbitsdescriptor/:bitid', downloadBitsDescriptor);
 
+
+/**
+ * @swagger
+ *  /bits/getall:
+ *  get:
+ *      summary: get all bits descriptors
+ *      responses:
+ *          200:
+ *              description: his returns JSON for all of the releases available if any. Defaults to just one release, with an ID of the release, version, release date, and a hash. If the current software VERSION is not provided, the app assumes no version is installed or the user's app doesn't about the current version.
+ */
+router.get('/getall', getAllBits);
+
 module.exports = router;
 
 function checkforupdatesbyserialno(req, res, next) {
@@ -63,5 +75,10 @@ function checkforupdatesbyserialno(req, res, next) {
 
 function downloadBitsDescriptor(req, res, next) {
     bitsService.downloadBitsDescriptor(req.params.bitid).then(bits => res.json(bits))
+        .catch(next);
+}
+
+function getAllBits(req, res, next) {
+    bitsService.getAllBits().then(bits => res.json(bits))
         .catch(next);
 }
