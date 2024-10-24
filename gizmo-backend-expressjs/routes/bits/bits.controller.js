@@ -65,6 +65,18 @@ router.get('/downloadbitsdescriptor/:bitid', downloadBitsDescriptor);
  */
 router.get('/getall', getAllBits);
 
+/**
+ * @swagger
+ * /bits/add:
+ *  post:
+ *      summary: add a new bit descriptor
+ *      
+ *      responses:
+ *          200:
+ *              description: his returns JSON of the new bits entry in the database.
+ */
+router.post('/add', addBits);
+
 module.exports = router;
 
 function checkforupdatesbyserialno(req, res, next) {
@@ -82,3 +94,18 @@ function getAllBits(req, res, next) {
     bitsService.getAllBits().then(bits => res.json(bits))
         .catch(next);
 }
+
+function addBits(req, res, next) {
+    // Optional
+    const id = req.body.id;
+    const url = req.body.url;
+    const date = req.body.date;
+
+    // Required
+    const filename = req.body.filename;
+    const hash = req.body.hash;
+    const version = req.body.version;
+    
+    bitsService.addBits(filename,hash,version,id,url,date).then(bits => res.json(bits))
+    .catch(next);
+  }

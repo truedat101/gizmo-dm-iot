@@ -13,7 +13,8 @@ const jwt = () => {
             '/bits/checkforupdatesbyserialno/:serialno/:version',
             /^\/bits\/checkforupdatesbyserialno\/.*/,
             /^\/bits\/downloadbitsdescriptor\/.*/,
-            /^\/bits\/getall/
+            /^\/bits\/getall/,
+            /^\/bits\/add/,
         ]
     });
 }

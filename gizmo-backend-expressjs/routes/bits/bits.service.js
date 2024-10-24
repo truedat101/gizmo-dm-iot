@@ -15,6 +15,9 @@ const bits = require('../../gizmobits.json');
 */
 
 const devices = require('../../gizmodevices.json');
+const fs = require('fs');
+const path = require('path');
+
 /*
 [
     { id: 1, serialno="H1100500", swversion: '1.1.33', modifieddate: 'Sun, 30 Jun 2024 21:49:36 GMT'},
@@ -24,7 +27,8 @@ const devices = require('../../gizmodevices.json');
 module.exports = {
     checkforupdatesbyserialno,
     downloadBitsDescriptor,
-    getAllBits
+    getAllBits,
+    addBits
 };
 
 async function checkforupdatesbyserialno(serialno, version) {
@@ -84,4 +88,75 @@ async function downloadBitsDescriptor(bitid) {
 
 async function getAllBits() {
     return bits;
+}
+
+async function addBits(filename,hash,version,id,url,date) {
+    // TODO; update the database
+    var respobj = {};
+    var newrecord = {};
+    var errors = [];
+    /*
+    { "id": 5, "swversion": "3.1.46", 
+     "releasedate": "Sun, 18 Oct 2024 5:49:36 GMT", 
+     "path": "https://rtxb.biz/device/39/application.bin", 
+     "hash": "abcd" }
+     */
+    if (filename) {
+        // nothing to do, use this in the url
+        
+    } else {
+        filename = "application.bin";
+    }
+
+    if (hash) {
+        newrecord["hash"] = hash;
+    } else {
+        errors.push("Missing hash");
+    }
+
+    if (version) {
+        newrecord["swversion"] = version;
+    } else {
+        errors.push("Missing version");
+    }
+
+    if (id) {
+        // override id
+    } else {
+        id = bits.length + 1;
+    }
+
+    if (url) {
+        // override url
+    } else {
+        url = config["bitsuri"] + "/" + id + "/" + filename;
+    }
+
+    if (date) {
+        // override date
+    } else {
+        date = (new Date()).toISOString();
+    }
+    
+    if (errors.length == 0) {
+        newrecord = {
+            "id": id,
+            "swversion": version,
+            "releasedate": date,
+            "path": url,
+            "hash": hash
+        };
+    }
+    if (errors.length > 0) {
+        return {"errors": errors};
+    } else {
+        // Write the new bits:
+        bits.push(newrecord);
+        fs.writeFile(path.join(__dirname,'../../gizmobits.json'), JSON.stringify(bits), 
+            err => {
+                if (err) throw err;
+                console.log('File has been saved!');
+        });
+        return newrecord;
+    }
 }
