@@ -12,6 +12,11 @@ Documentation at https://jasonwatmore.com/nodejs-jwt-authentication-tutorial-wit
 
 Original Source: https://github.com/cornflourblue/node-jwt-authentication-api
 
+## Build
+
+- use node v18
+- pnpm install .
+
 ## Docker
 
 ### Build
