@@ -1,4 +1,4 @@
-FROM alpine:3.19
+FROM node:18-alpine
 
 # Environment variables
 ENV NC_ENVIRONMENT "production"
@@ -11,7 +11,7 @@ RUN npm install -g pnpm
 RUN pnpm install
 
 COPY . .
-RUN npm run build
+RUN npm run start
 
 
 EXPOSE 3000

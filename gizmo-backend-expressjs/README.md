@@ -21,7 +21,7 @@ Original Source: https://github.com/cornflourblue/node-jwt-authentication-api
 
 ### Build
 
-docker build -t gizmo-api -f Dockerfile
+docker build -t gizmo-api -f Dockerfile .
 
 ### Run
 
