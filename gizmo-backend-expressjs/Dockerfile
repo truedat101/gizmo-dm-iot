@@ -11,7 +11,7 @@ RUN npm install -g pnpm
 RUN pnpm install
 
 COPY . .
-RUN npm run start
+# RUN npm run start
 
 
 EXPOSE 3000
@@ -19,4 +19,4 @@ EXPOSE 3000
 # Rund DB migrations & Start API
 # CMD ["sh","-c","npm run migrate && npm run start:prod"]
 # Using this for debugging purposes
-CMD ["sh","-c","npm run migrate && npm run start:trace2"]
+CMD ["sh","-c","npm run start"]
