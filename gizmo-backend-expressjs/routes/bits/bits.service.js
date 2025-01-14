@@ -66,9 +66,14 @@ async function checkforupdatesbyserialno(serialno, version) {
         }
     } else {
         // If no managed device found, assume we always want to update to latest available
+        // but only return the latest version if it is not equal the current version
         // If no version provided, assume we always want to update to latest available
         if (bits.length) {
-            return bits[bits.length-1];
+            if (version != bits[bits.length-1].swversion) {
+                return bits[bits.length-1];
+            } else {
+                return ({});
+            }
         } else {
             return ({}); // XXX This seems like a failure
         }

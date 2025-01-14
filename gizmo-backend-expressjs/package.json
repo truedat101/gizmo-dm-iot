@@ -1,7 +1,7 @@
 {
-    "name": "node-jwt-authentication-api",
-    "version": "1.0.0",
-    "description": "NodeJS JWT Authentication API",
+    "name": "gizmo-backend-api",
+    "version": "1.0.1",
+    "description": "A Gizmo Server Backend API",
     "license": "MIT",
     "repository": {
         "type": "git",
