@@ -49,12 +49,12 @@ async function checkforupdatesbyserialno(serialno, version) {
             // If the version matches, then we don't need to upgrade, return empty
             // If the version doesn't match, we need an upgrade, return the swbit
             var swbit = bits.find(b => b.swversion == version);
-            if (swbit && (version === device.swversion)) {
+            if (swbit && device && (version === device.swversion)) {
                 console.log("Nothing to upgrade");
                 // nothing to upgrade
                 return({});
             } else {
-                console.log("swbits version: " + swbit.swversion + " device swversion: " + device.swversion);
+                console.log("device swversion: " + device.swversion + " for serialno " + serialno);
                 // Find the bits for the serialno since we aren't at the current managed version
                 swbit = bits.find(b => b.swversion == device.swversion);
                 return (swbit);
