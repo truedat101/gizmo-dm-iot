@@ -32,7 +32,7 @@ module.exports = {
 };
 
 async function checkforupdatesbyserialno(serialno, version) {
-    console.log("Lookup bits by serialno:", serialno)
+    console.log("Lookup bits by serialno:" + serialno + " version: " + version);
     // const user = users.find(u => u.username === username && u.password === password);
 
     // We can't handle a situation where serialNo is missing, so this is an exception
@@ -42,16 +42,19 @@ async function checkforupdatesbyserialno(serialno, version) {
     const device = devices.find(d => d.serialno === serialno);
     if (device) {
         if (version && version !== ",") {
+            console.log("device exists and version is set");
             // If found, check that the swversion matches the passed in swversion
             //
             // Rules
             // If the version matches, then we don't need to upgrade, return empty
             // If the version doesn't match, we need an upgrade, return the swbit
             var swbit = bits.find(b => b.swversion == version);
-            if (swbit) {
+            if (swbit && (version === device.swversion)) {
+                console.log("Nothing to upgrade");
                 // nothing to upgrade
                 return({});
             } else {
+                console.log("swbits version: " + swbit.swversion + " device swversion: " + device.swversion);
                 // Find the bits for the serialno since we aren't at the current managed version
                 swbit = bits.find(b => b.swversion == device.swversion);
                 return (swbit);
@@ -59,6 +62,7 @@ async function checkforupdatesbyserialno(serialno, version) {
         } else {
             // If no version provided, assume we always want to update to latest available
             if (bits.length) {
+                console.log("No version provided so return latest bits");
                 return bits[bits.length-1];
             } else {
                 console.log("No bits found in the DB (0 records)");
