@@ -54,21 +54,27 @@ async function checkforupdatesbyserialno(serialno, version) {
             } else {
                 // Find the bits for the serialno since we aren't at the current managed version
                 swbit = bits.find(b => b.swversion == device.swversion);
-                return ({});
+                return (swbit);
             }
         } else {
             // If no version provided, assume we always want to update to latest available
             if (bits.length) {
                 return bits[bits.length-1];
             } else {
+                console.log("No bits found in the DB (0 records)");
                 return ({}); // XXX This seems like a failure
             }
         }
     } else {
         // If no managed device found, assume we always want to update to latest available
+        // but only return the latest version if it is not equal the current version
         // If no version provided, assume we always want to update to latest available
         if (bits.length) {
-            return bits[bits.length-1];
+            if (version != bits[bits.length-1].swversion) {
+                return bits[bits.length-1];
+            } else {
+                return ({});
+            }
         } else {
             return ({}); // XXX This seems like a failure
         }

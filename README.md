@@ -2,6 +2,12 @@
 
 This is a PoC repository to support simple DM/OTA for remote nodes that require firmware updates.
 
+## PoC0
+
+This is a backend concept for DM and serves files based on a JSON database.
+
+STATUS: DONE
+
 ## PoC1
 
 This first PoC is a pure frontend only UI wireframe of an OTA/DM solution.
