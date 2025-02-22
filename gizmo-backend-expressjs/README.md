@@ -27,7 +27,10 @@ docker build -t gizmo-api -f Dockerfile .
 
 Note: copy the json files into place.  This ensures you don't lose data between restarts.
 
-docker run -itd -v $(pwd)/config.json:/opt/gizmo-api/config-debug -v $(pwd)/gizmobits.json:/opt/gizmo-api/gizmodevices.json:ro  --init -p 3000:3000 --name my-gizmoapi gizmo-api
 
 
+```
+sudo docker run -itd -v $(pwd)/config.json:/opt/gizmo-webapi/config.json -v $(pwd)/gizmodevices.json:/opt/gizmo-webapi/gizmodevices.json -v $(pwd)/gizmobits.json:/opt/gizmo-webapi/gizmobits.json  --init -p 3002:3000 --name my-gizmoapi gizmo-api
+```
 
+In above example, mapping to a local port other than 3002 for external access.
